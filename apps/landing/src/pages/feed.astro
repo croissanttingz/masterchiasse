@@ -1,0 +1,31 @@
+---
+import { Feed } from '../features/feed/client/components/Feed'
+import { Topbar } from '../features/navigation/client/components/Topbar'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Feed - MasterChiasse">
+  <Topbar />
+
+  <div class="min-h-screen bg-gray-50">
+    {/* Header */}
+    <div class="bg-white border-b border-gray-200">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center gap-4">
+          <a href="/" class="text-gray-500 hover:text-gray-700 transition-colors">
+            ← Back to Home
+          </a>
+        </div>
+        <div class="mt-4">
+          <h1 class="text-3xl font-bold text-gray-900">📰 Feed</h1>
+          <p class="text-gray-600 mt-2">Discover the latest articles and discussions from our community</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Feed Content */}
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <Feed client:load />
+    </div>
+  </div>
+</Layout>

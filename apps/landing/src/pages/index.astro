@@ -1,13 +1,98 @@
 ---
+import { Topbar } from '../features/navigation/client/components/Topbar'
 import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout>
-  <div class="min-h-screen flex flex-col justify-center items-center gap-8">
-    <h1 class="text-3xl font-fancy">Hey 👋</h1>
+  <Topbar />
 
-    <img alt="logo" src="logo.png" class="h-[120px]" />
+  <div class="min-h-screen bg-gray-50">
+    {/* Hero Section */}
+    <div class="bg-white border-b border-gray-200">
+      <div class="max-w-6xl mx-auto px-4 py-12">
+        <div class="flex justify-center">
+          <div class="flex items-center gap-6">
+            <div>
+              <img alt="logo" src="logo.png" class="h-[80px]" />
+            </div>
 
-    <p>Welcome to MasterChiasse</p>
+            <div>
+              <h1 class="text-4xl font-black font-fancy">
+                Discover the <br />
+                ⭐ <span class="text-gradient">World's Top Master Chiasses </span> ⭐
+              </h1>
+              <p class="text-gray-600 mt-2 text-lg">Open source alternative to master classes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Sections Grid */}
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Explore Our Sections</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Feed Section Card */}
+        <a href="/feed" class="group">
+          <div
+            class="bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-200 p-6"
+          >
+            <div class="text-4xl mb-4">📰</div>
+            <h3
+              class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors"
+            >
+              Feed
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Discover the latest articles and discussions from our community of experts and
+              learners.
+            </p>
+          </div>
+        </a>
+
+        {/* Charger Section Card */}
+        <a href="/charger" class="group">
+          <div
+            class="bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-200 p-6"
+          >
+            <div class="text-4xl mb-4">⚡</div>
+            <h3
+              class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors"
+            >
+              Charger
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Get energized with our special audio experience. BRRRRRRR!
+            </p>
+          </div>
+        </a>
+
+        {/* Placeholder for future sections */}
+        <div class="bg-gray-100 rounded-lg border border-gray-200 p-6 opacity-50">
+          <div class="text-4xl mb-4">🚧</div>
+          <h3 class="text-xl font-semibold text-gray-500 mb-2">Coming Soon</h3>
+          <p class="text-gray-500 text-sm">More exciting sections are on the way. Stay tuned!</p>
+        </div>
+
+        <div class="bg-gray-100 rounded-lg border border-gray-200 p-6 opacity-50">
+          <div class="text-4xl mb-4">🎯</div>
+          <h3 class="text-xl font-semibold text-gray-500 mb-2">Coming Soon</h3>
+          <p class="text-gray-500 text-sm">More exciting sections are on the way. Stay tuned!</p>
+        </div>
+
+        <div class="bg-gray-100 rounded-lg border border-gray-200 p-6 opacity-50">
+          <div class="text-4xl mb-4">🎨</div>
+          <h3 class="text-xl font-semibold text-gray-500 mb-2">Coming Soon</h3>
+          <p class="text-gray-500 text-sm">More exciting sections are on the way. Stay tuned!</p>
+        </div>
+
+        <div class="bg-gray-100 rounded-lg border border-gray-200 p-6 opacity-50">
+          <div class="text-4xl mb-4">🔬</div>
+          <h3 class="text-xl font-semibold text-gray-500 mb-2">Coming Soon</h3>
+          <p class="text-gray-500 text-sm">More exciting sections are on the way. Stay tuned!</p>
+        </div>
+      </div>
+    </div>
   </div>
 </Layout>

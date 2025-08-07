@@ -13,3 +13,23 @@ body {
 .font-fancy {
   font-family: "Sour Gummy", sans-serif;
 }
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--color-purple-500) 0%, var(--color-blue-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.text-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

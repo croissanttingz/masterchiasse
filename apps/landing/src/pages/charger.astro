@@ -1,0 +1,75 @@
+---
+import { Topbar } from '../features/navigation/client/components/Topbar'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Charger - MasterChiasse">
+  <Topbar />
+
+  <div class="min-h-screen bg-gray-50 flex flex-col">
+    {/* Header */}
+    <div class="bg-white border-b border-gray-200">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center gap-4">
+          <a href="/" class="text-gray-500 hover:text-gray-700 transition-colors">
+            ← Back to Home
+          </a>
+        </div>
+        <div class="mt-4">
+          <h1 class="text-3xl font-bold text-gray-900">⚡ Charger</h1>
+          <p class="text-gray-600 mt-2">Get energized with our special audio experience</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Main Content */}
+    <div class="flex-1 flex items-center justify-center">
+      <div class="text-center">
+        {/* BRRRRRRR Text */}
+        <h2 class="text-4xl font-black font-fancy text-gradient text-pulse mb-8">
+          <span class="letter">B</span><span class="letter r-letter">R</span><span
+            class="letter r-letter">R</span
+          ><span class="letter r-letter">R</span><span class="letter r-letter">R</span><span
+            class="letter r-letter">R</span
+          ><span class="letter r-letter clickable-r" id="control-r">R</span><span
+            class="letter r-letter">R</span
+          >
+        </h2>
+
+        {/* Audio Player */}
+        <div class="bg-white rounded-lg border border-gray-200 p-8 shadow-lg opacity-0">
+          <audio id="audio-player" controls autoplay loop class="w-full max-w-md mx-auto">
+            <source src="/music__Triangle-des-bermudes__Charger.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+
+          <p class="text-gray-600 mt-4 text-sm">Triangle des Bermudes - Charger</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .letter {
+    display: inline-block;
+    transition: all 0.2s ease;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const controlR = document.getElementById('control-r')
+    const audioPlayer = document.getElementById('audio-player') as HTMLAudioElement
+
+    if (controlR && audioPlayer) {
+      controlR.addEventListener('click', function () {
+        if (audioPlayer.paused) {
+          audioPlayer.play()
+        } else {
+          audioPlayer.pause()
+        }
+      })
+    }
+  })
+</script>
