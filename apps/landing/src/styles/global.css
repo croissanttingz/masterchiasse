@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+@import '@radix-ui/themes/styles.css';
+@import "./theme.css";
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+.font-fancy {
+  font-family: "Sour Gummy", sans-serif;
+}
