@@ -1,11 +1,29 @@
 {
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#503423",
+    "activityBar.inactiveForeground": "#D3D3D3",
+    "activityBar.foreground": "#FFFFFF",
+    "activityBar.activeFocusBorder": "#FFFFFF",
+    "statusBar.background": "#503423",
+    "activityBarBadge.background": "#6D6D6D",
+    "titleBar.activeBackground": "#503423",
+    "titleBar.activeForeground": "#FFFFFF",
+    "titleBar.inactiveBackground": "#503423",
+    "typescript.tsserver.pluginPaths": [
+      "typescript-plugin-css-modules"
+    ]
+  },
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": "always",
     "source.fixAll": "always",
     "source.fixAll.eslint": "always"
   },
-  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "typescriptreact"
+  ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
