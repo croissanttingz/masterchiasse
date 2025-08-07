@@ -4,11 +4,13 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && prisma generate",
+    "build": "astro build",
+    "start": "node ./dist/server/entry.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "^9.3.3",
     "@astrojs/react": "^4.3.0",
     "@astrojs/vercel": "^8.2.2",
     "@prisma/client": "6.12.0",
