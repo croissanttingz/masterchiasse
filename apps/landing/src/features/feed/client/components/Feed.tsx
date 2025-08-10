@@ -2,6 +2,9 @@ import { ChevronDown, ChevronUp, Clock, MessageCircle, Share, User, FileText, Im
 import { useEffect, useState } from 'react'
 import { ApiClient } from '../../../../core/client'
 import { CreateChiasse } from './CreateChiasse'
+import { SortingTabs } from './SortingTabs'
+
+type SortType = 'hot' | 'new' | 'top' | 'rising'
 
 interface Chiasse {
   id: string
@@ -62,16 +65,23 @@ export const Feed = () => {
   const [chiasses, setChiasses] = useState<Chiasse[]>([])
   const [loading, setLoading] = useState(true)
   const [votingStates, setVotingStates] = useState<Record<string, boolean>>({})
+  const [currentSort, setCurrentSort] = useState<SortType>('hot')
 
-  const fetchData = async () => {
+  const fetchData = async (sortBy: SortType = currentSort) => {
+    setLoading(true)
     try {
-      const data = await ApiClient.feed.findManyChiasses.query()
+      const data = await ApiClient.feed.findManyChiasses.query({ sortBy })
       setChiasses(data)
     } catch (error) {
       console.error('Failed to fetch chiasses:', error)
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleSortChange = (newSort: SortType) => {
+    setCurrentSort(newSort)
+    fetchData(newSort)
   }
 
   const handleVote = async (chiasseId: string) => {
@@ -138,7 +148,9 @@ export const Feed = () => {
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Latest Chiasses</h2>
       </div>
 
-      <CreateChiasse onChiasseCreated={fetchData} />
+      <CreateChiasse onChiasseCreated={() => fetchData(currentSort)} />
+      
+      <SortingTabs currentSort={currentSort} onSortChange={handleSortChange} />
 
       <div className="space-y-4">
         {chiasses.map((chiasse) => {

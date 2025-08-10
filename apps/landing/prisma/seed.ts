@@ -10,6 +10,7 @@ const seedChiasses = [
     countVotes: 42,
     author: 'Sarah Chen',
     type: 'text' as const,
+    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
   },
   {
     title: 'Amazing Nature Photography',
@@ -18,14 +19,16 @@ const seedChiasses = [
     countVotes: 38,
     author: 'Alex Rodriguez',
     type: 'image' as const,
+    createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
   },
   {
     title: 'TypeScript Tutorial Series',
     content:
       'Complete video series covering TypeScript from basics to advanced concepts. Perfect for developers who want to master type-safe JavaScript development with practical examples and real-world applications.',
-    countVotes: 56,
+    countVotes: 156,
     author: 'Michael Thompson',
     type: 'video' as const,
+    createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
   },
   {
     title: 'Awesome React Documentation',
@@ -34,6 +37,34 @@ const seedChiasses = [
     countVotes: 29,
     author: 'Emma Wilson',
     type: 'external_link' as const,
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
+  },
+  {
+    title: 'Fresh New Web Framework',
+    content:
+      'Just discovered this amazing new web framework that promises to revolutionize how we build modern applications. Still exploring all its features but early impressions are very positive.',
+    countVotes: 15,
+    author: 'Jordan Smith',
+    type: 'text' as const,
+    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+  },
+  {
+    title: 'Live Coding Stream Tonight',
+    content:
+      'Join me tonight for a live coding session where we build a full-stack application from scratch. Will be covering authentication, database design, and deployment.',
+    countVotes: 25,
+    author: 'DevStreamer',
+    type: 'video' as const,
+    createdAt: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
+  },
+  {
+    title: 'Beautiful CSS Animation',
+    content:
+      'Created this smooth loading animation using pure CSS. No JavaScript required! Perfect for modern web applications that need elegant user feedback.',
+    countVotes: 8,
+    author: 'CSS Wizard',
+    type: 'text' as const,
+    createdAt: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
   }
 ]
 
