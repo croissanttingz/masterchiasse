@@ -7,7 +7,11 @@
     "build": "astro build",
     "start": "node ./dist/server/entry.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@astrojs/node": "^9.3.3",
@@ -35,6 +39,7 @@
   },
   "devDependencies": {
     "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6"
+    "@types/react-dom": "^19.1.6",
+    "tsx": "^4.20.3"
   }
 }

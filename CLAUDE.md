@@ -40,11 +40,13 @@ pnpm preview
 ### Linting and Formatting
 ```bash
 # Run ESLint (from root)
-pnpm eslint
+pnpm run --parallel eslint
 
 # Run Prettier (from root) 
-pnpm prettier
+pnpm run --parallel prettier
 ```
+
+Note: Both root package.json and apps/landing have linting/formatting scripts that can be run in parallel using `pnpm run --parallel`.
 
 ## Architecture Overview
 
@@ -52,61 +54,75 @@ pnpm prettier
 - **Monorepo**: Uses pnpm workspaces with a single `apps/landing` application
 - **Frontend**: Astro framework with React integration
 - **Backend**: tRPC for type-safe API endpoints
-- **Styling**: Tailwind CSS with Radix UI components
+- **Styling**: Tailwind CSS 4 with Radix UI components
 - **Database**: Prisma ORM configured (though no schema files present yet)
 
 ### Core Architecture Patterns
 
-#### tRPC Setup
-The application uses a structured tRPC architecture:
+#### tRPC Architecture
+The application uses a layered tRPC architecture with strict separation of concerns:
 
 - **Base Layer** (`src/core/base/`):
-  - `trpc.ts`: Core tRPC setup with context typing
-  - `appRouter.ts`: Main router combining feature routers
-  - `context.ts`: Request context creation
+  - `trpc.ts`: Core tRPC instance initialization with typed context
+  - `appRouter.ts`: Root router that combines all feature routers
+  - `context.ts`: Request context creation and typing
 
 - **Server Layer** (`src/core/server/`):
-  - Provides `TrpcServer` with public and protected procedures
-  - Middleware for authentication and authorization
+  - `index.ts`: Exports `TrpcServer` object with `procedurePublic` and `procedureProtected`
+  - `middlewares.ts`: Authentication and authorization middleware
+  - Provides standardized procedures for all features
 
 - **Client Layer** (`src/core/client/`):
-  - `apiClient.ts`: tRPC proxy client for frontend consumption
+  - `apiClient.ts`: tRPC proxy client using `httpBatchLink`
+  - `onError.ts`: Centralized error handling
+  - Provides type-safe client for frontend consumption
+
+#### tRPC API Endpoint Structure
+- All API calls go through `/trpc/[trpc].ts` using Astro's API route system
+- Uses `fetchRequestHandler` for Astro integration
+- Endpoint configured with `prerender: false` for dynamic handling
 
 #### Feature-Based Organization
-Features are organized in `src/features/` with client/server separation:
-- Each feature has `client/` (React components) and `server/` (tRPC routers) directories
-- Example: `feed/` feature with articles listing functionality
+Features follow a consistent client/server separation pattern in `src/features/`:
+- **Client**: React components in `client/components/`
+- **Server**: tRPC routers in `server/router.ts` and `server/index.ts`
+- Current features: `feed` (articles with mock data), `health` (health check), `navigation` (topbar)
 
 #### Frontend Structure
-- **Astro Pages**: Located in `src/pages/` for routing
-- **React Components**: Feature-specific components in respective `client/components/` folders
+- **Astro Pages**: File-based routing in `src/pages/`
+- **React Integration**: Interactive components using `@astrojs/react`
 - **Layouts**: Shared Astro layouts in `src/layouts/`
-- **Styling**: Global styles in `src/styles/`
+- **Styling**: Global CSS in `src/styles/` with theme support
 
 ### Key Dependencies
-- **Astro 5.11+**: Main framework with Node.js adapter
-- **React 19**: UI components
-- **tRPC 11**: Type-safe API layer
-- **Tailwind CSS 4**: Utility-first styling
-- **Radix UI**: Component primitives
-- **Prisma 6**: Database ORM
-- **Supabase**: Database and auth provider
+- **Astro 5.11+**: Main framework with Node.js adapter in standalone mode
+- **React 19**: Latest React for interactive components
+- **tRPC 11**: Type-safe API layer with batched requests
+- **Tailwind CSS 4**: Latest utility-first styling via Vite plugin
+- **Radix UI**: Accessible component primitives
+- **Prisma 6**: Database ORM (configured but not actively used)
+- **Supabase**: Database and authentication provider
 
 ## Development Notes
 
 ### Astro Configuration
-- Uses Node.js adapter in standalone mode for deployment
-- Integrates React for interactive components
-- Tailwind CSS configured through Vite plugin
-- Server configured with `host: true` for external access
+- Uses Node.js adapter in standalone mode for production deployment
+- React integration for client-side interactivity
+- Tailwind CSS 4 configured through Vite plugin (not PostCSS)
+- Server configured with `host: true` for external network access
 
-### API Development
-- All API routes go through tRPC at `/trpc` endpoint
+### API Development Patterns
 - Use `TrpcServer.procedurePublic` for unauthenticated endpoints
-- Use `TrpcServer.procedureProtected` for authenticated endpoints
-- Mock data currently used in feed feature (see `apps/landing/src/features/feed/server/router.ts:4`)
+- Use `TrpcServer.procedureProtected` for authenticated endpoints  
+- All routers must be registered in `src/core/base/appRouter.ts`
+- Mock data pattern: See feed feature at `apps/landing/src/features/feed/server/router.ts:4-105`
 
-### Deployment
-- Configured for Node.js deployment with standalone adapter
-- Production server starts with `pnpm start` using built server entry point
-- Uses Render.com configuration based on recent commits
+### Client-Side API Usage
+- Import `ApiClient` from `src/core/client/apiClient.ts`
+- Fully typed queries and mutations
+- Automatic batching of requests via `httpBatchLink`
+
+### Deployment Configuration
+- Production builds to `dist/server/entry.mjs` 
+- Start production server with `pnpm start` (runs Node.js entry point)
+- Configured for Render.com deployment based on recent commits
